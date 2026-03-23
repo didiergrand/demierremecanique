@@ -192,12 +192,12 @@ if ( ! empty( $home_slides ) ) {
 							<?php while ( $service_query->have_posts() ) : $service_query->the_post(); ?>
 								<?php $service_cta = $get_cta_data( get_the_ID() ); ?>
 								<article class="home-card home-card--center">
-									<?php if ( has_post_thumbnail() ) : ?>
-										<div class="home-card-image">
-											<?php the_post_thumbnail( 'large' ); ?>
-										</div>
-									<?php endif; ?>
 									<div class="home-card-content">
+										<?php if ( has_post_thumbnail() ) : ?>
+											<div class="home-service-image">
+												<?php the_post_thumbnail( 'large' ); ?>
+											</div>
+										<?php endif; ?>
 										<h3 class="home-card-title"><?php the_title(); ?></h3>
 										<div class="home-card-text"><?php the_content(); ?></div>
 										<?php if ( ! empty( $service_cta['text'] ) && ! empty( $service_cta['link'] ) ) : ?>

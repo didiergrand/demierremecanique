@@ -499,10 +499,13 @@
   height: 100%;
   object-fit: cover;
 }
+.home-service-image {
+  width: 64px;
+}
 
 .home-card-image {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--background-gray);
 }
