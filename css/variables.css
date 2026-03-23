@@ -1,0 +1,24 @@
+:root {
+  --primary-color: #009EE9;
+  --secondary-color: #00364F;
+  --tertiary-color: #FAE21C;
+  --background-color: #FFFFFF;
+  --foreground-color: #000000;
+  --text-color: #000000;
+  --link-color: #009EE9;
+  --border-color: #E5E7EB;
+  --background-gray: #F8F9FA;
+
+/* 
+  --yellow: #eda737;
+  --yellow-hover: #e8a000;
+  --green: #2e9e47;
+  --green-light: #eaf4ed;
+  --green-dark: #2c6526;
+  --blue: #79ade0;
+  --blue-light: #ecf1f7;
+  --blue-link: #2668a8;
+  --blue-dark: #253266;
+  --white: #fff;
+  --black: #000; */
+}

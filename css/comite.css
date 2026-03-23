@@ -1,0 +1,69 @@
+#comite_direction img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    aspect-ratio: 2/3;
+    margin: 0 auto
+}
+
+#comite_direction .wp-block-column {
+    text-align: center;
+    font-size: .75rem;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    background-color: var(--background-gray);
+    border: 1px solid var(--border-color);
+}
+
+#comite_direction .wp-block-column:empty {
+    background-color: transparent;
+    border: 0;
+}
+
+#comite_direction .highlight_section .wp-block-column {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+}
+
+#comite_direction .highlight_section .wp-block-column:empty {
+    background-color: transparent;
+    border: 0;
+}
+
+#comite_direction h3 {
+    font-weight: 700;
+    font-size: 1rem;
+    margin: .5rem;
+    border: 0;
+    text-transform: none;
+    padding: 0;
+    line-height: normal
+}
+
+#comite_direction .wp-block-column>h5:first-child {
+    margin-top: 20rem
+}
+
+h3:before {
+    display: none
+}
+
+#comite_direction h5 {
+    font-weight: 700;
+    text-transform: uppercase
+}
+
+#comite_direction h5,#comite_direction p {
+    margin: .5rem;
+    line-height: normal
+}
+#comite_direction :where(.wp-block-columns.is-layout-flex) {
+    gap: 1rem;
+}
+@media screen and (min-width: 480px) and (max-width:781px) {
+    #comite_direction .wp-block-columns {
+        display:grid;
+        grid-template-columns: 1fr 1fr
+    }
+}
