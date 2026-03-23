@@ -691,6 +691,7 @@ article {
   border-radius: 5px;
   font-weight: 500;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 12px;
 }
 .wp-block-file__button:hover,
 .wp-block-file__button:focus,
@@ -759,4 +760,12 @@ article {
 }
 .current_page_item a {
   color: var(--link-color) !important;
+}
+.marques{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 32px;
+  overflow-x: auto;
+  align-items: center;
 }
