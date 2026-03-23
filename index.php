@@ -176,6 +176,27 @@ if ( ! empty( $home_slides ) ) {
 				<?php wp_reset_postdata(); ?>
 
 				<?php
+				$service_intro_query = new WP_Query(
+					array(
+						'post_type'      => 'post',
+						'posts_per_page' => 1,
+						'category_name' => 'service_intro',
+						'orderby'        => 'date',
+						'order'          => 'DESC',
+					)
+				);
+				?>
+				<?php if ( $service_intro_query->have_posts() ) : ?>
+					<section class="home-service-intro">
+						<?php while ( $service_intro_query->have_posts() ) : $service_intro_query->the_post(); ?>
+							<h2 class="home-service-intro-title"><?php the_title(); ?></h2>
+							<div class="home-service-intro-text"><?php the_content(); ?></div>
+						<?php endwhile; ?>
+					</section>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
+
+				<?php
 				$service_query = new WP_Query(
 					array(
 						'post_type'      => 'post',

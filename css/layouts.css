@@ -471,6 +471,21 @@
   margin: 20px 0 28px;
 }
 
+.home-service-intro {
+  margin: 30px 0 28px;
+  text-align: center;
+}
+
+.home-service-intro-title {
+  color: var(--primary-color);
+  margin: 0 0 14px;
+}
+
+.home-service-intro-text {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .home-cards-grid {
   display: grid;
   gap: 20px;
