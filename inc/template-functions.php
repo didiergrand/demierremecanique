@@ -177,3 +177,56 @@ function demierre_mecanique_display_archive_header_image( $title = '' ) {
 	</div>
 	<?php
 }
+
+/**
+ * Get homepage carousel slides from a category slug.
+ *
+ * Each slide is built from the post featured image and basic post data.
+ *
+ * @param string $category_slug Category slug (e.g. "slides-accueil").
+ * @return array[] Array of slides: [ 'image' => string, 'title' => string, 'excerpt' => string, 'link' => string ].
+ */
+function demierre_mecanique_get_home_slides( $category_slug = 'slides-accueil' ) {
+	$args = array(
+		'post_type'      => 'post',
+		'posts_per_page' => -1,
+		'category_name' => $category_slug,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	);
+
+	$query = new WP_Query( $args );
+	if ( ! $query->have_posts() ) {
+		return array();
+	}
+
+	$slides = array();
+
+	foreach ( $query->posts as $post ) {
+		setup_postdata( $post );
+
+		$image_url = get_the_post_thumbnail_url( $post->ID, 'full' );
+		if ( ! $image_url ) {
+			// Requirement: use the featured image. If a post has none, skip it.
+			continue;
+		}
+
+		$title   = get_the_title( $post->ID );
+		$excerpt = wp_trim_words(
+			wp_strip_all_tags( get_the_excerpt( $post->ID ) ),
+			30,
+			'...'
+		);
+
+		$slides[] = array(
+			'image'   => $image_url,
+			'title'   => $title,
+			'excerpt' => $excerpt,
+			'link'    => get_permalink( $post->ID ),
+		);
+	}
+
+	wp_reset_postdata();
+
+	return $slides;
+}

@@ -14,26 +14,55 @@
 
 get_header();
 $header_image = get_header_image();
-$carousel_images = demierre_mecanique_get_header_carousel_images( $header_image );
+$home_slides = array();
+
+if ( is_front_page() && is_home() ) {
+	$home_slides = demierre_mecanique_get_home_slides( 'slides-accueil' );
+}
+
+if ( ! empty( $home_slides ) ) {
+	$carousel_images       = array_column( $home_slides, 'image' );
+	$header_image_to_show  = $carousel_images[0] ?? $header_image;
+} else {
+	$carousel_images      = demierre_mecanique_get_header_carousel_images( $header_image );
+	$header_image_to_show = $header_image;
+}
 ?>
-<div class="header-image" <?php echo count( $carousel_images ) > 1 ? 'data-carousel-images="' . esc_attr( wp_json_encode( $carousel_images ) ) . '"' : ''; ?>>
-	<img src="<?php echo esc_url( $header_image ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" alt="" />
+<div class="header-image" <?php echo count( $carousel_images ) > 1 ? 'data-carousel-images="' . esc_attr( wp_json_encode( $carousel_images ) ) . '"' : ''; ?> <?php echo ! empty( $home_slides ) ? 'data-carousel-slides="' . esc_attr( wp_json_encode( $home_slides ) ) . '"' : ''; ?>>
+	<img src="<?php echo esc_url( $header_image_to_show ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" alt="" />
 	<div class="container">
 		<div class="header-image-content">
-			<?php
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			<?php if ( ! empty( $home_slides ) ) : ?>
+				<?php $first_slide = $home_slides[0]; ?>
+				<div class="header-carousel-panel">
+					<h1 class="header-carousel-title">
+						<a class="header-carousel-title-link" href="<?php echo esc_url( $first_slide['link'] ); ?>">
+							<?php echo esc_html( $first_slide['title'] ); ?>
+						</a>
+					</h1>
+					<?php if ( ! empty( $first_slide['excerpt'] ) ) : ?>
+						<p class="header-carousel-excerpt"><?php echo esc_html( $first_slide['excerpt'] ); ?></p>
+					<?php endif; ?>
+					<a class="header-carousel-button btn-default" href="<?php echo esc_url( $first_slide['link'] ); ?>">
+						<?php echo esc_html__( 'En savoir plus', 'demierre-mecanique' ); ?>
+					</a>
+				</div>
+			<?php else : ?>
 				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$demierre_mecanique_description = get_bloginfo( 'description', 'display' );
-			if ( $demierre_mecanique_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $demierre_mecanique_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+				if ( is_front_page() && is_home() ) :
+					?>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<?php
+				else :
+					?>
+					<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
+					<?php
+				endif;
+				$demierre_mecanique_description = get_bloginfo( 'description', 'display' );
+				if ( $demierre_mecanique_description || is_customize_preview() ) :
+					?>
+					<p class="site-description"><?php echo $demierre_mecanique_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+				<?php endif; ?>
 			<?php endif; ?>
 		</div>
 	</div>

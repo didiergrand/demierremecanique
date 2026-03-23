@@ -1,7 +1,7 @@
 ( function () {
 	'use strict';
 
-	var SWITCH_DELAY = 6000;
+	var SWITCH_DELAY = 5000;
 	var FADE_DELAY = 300;
 
 	function applyImage( container, url ) {
@@ -65,15 +65,57 @@
 			return;
 		}
 
+		var slides = [];
+		var rawSlides = container.getAttribute( 'data-carousel-slides' );
+		if ( rawSlides ) {
+			try {
+				slides = JSON.parse( rawSlides );
+			} catch ( error ) {
+				slides = [];
+			}
+		}
+
 		var currentIndex = 0;
 		var isPaused = false;
 		var dots = [];
+
+		function updateSlideText( nextIndex ) {
+			if ( ! Array.isArray( slides ) || slides.length === 0 ) {
+				return;
+			}
+
+			var slide = slides[ nextIndex ];
+			if ( ! slide ) {
+				return;
+			}
+
+			var titleLink = container.querySelector( '.header-carousel-title-link' );
+			if ( titleLink ) {
+				if ( slide.title ) {
+					titleLink.textContent = slide.title;
+				}
+				if ( slide.link ) {
+					titleLink.setAttribute( 'href', slide.link );
+				}
+			}
+
+			var excerpt = container.querySelector( '.header-carousel-excerpt' );
+			if ( excerpt ) {
+				excerpt.textContent = slide.excerpt ? slide.excerpt : '';
+			}
+
+			var button = container.querySelector( '.header-carousel-button' );
+			if ( button && slide.link ) {
+				button.setAttribute( 'href', slide.link );
+			}
+		}
 
 		function goToIndex( nextIndex ) {
 			container.classList.add( 'is-fading' );
 
 			window.setTimeout( function () {
 				applyImage( container, images[ nextIndex ] );
+				updateSlideText( nextIndex );
 				container.classList.remove( 'is-fading' );
 				currentIndex = nextIndex;
 				updateDots( dots, currentIndex );
@@ -84,6 +126,7 @@
 			goToIndex( index );
 		} );
 		updateDots( dots, currentIndex );
+		updateSlideText( currentIndex );
 
 		container.addEventListener( 'mouseenter', function () {
 			isPaused = true;
