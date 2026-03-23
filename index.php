@@ -29,7 +29,12 @@ if ( ! empty( $home_slides ) ) {
 }
 ?>
 <div class="header-image" <?php echo count( $carousel_images ) > 1 ? 'data-carousel-images="' . esc_attr( wp_json_encode( $carousel_images ) ) . '"' : ''; ?> <?php echo ! empty( $home_slides ) ? 'data-carousel-slides="' . esc_attr( wp_json_encode( $home_slides ) ) . '"' : ''; ?>>
-	<img src="<?php echo esc_url( $header_image_to_show ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" alt="" />
+	<div
+		class="header-image-bg"
+		style="background-image:url('<?php echo esc_url( $header_image_to_show ); ?>');"
+		aria-hidden="true"
+	></div>
+	<img class="header-carousel-fallback-img" src="<?php echo esc_url( $header_image_to_show ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" alt="" aria-hidden="true" />
 	<div class="container">
 		<div class="header-image-content">
 			<?php if ( ! empty( $home_slides ) ) : ?>
