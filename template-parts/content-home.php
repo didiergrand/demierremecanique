@@ -24,8 +24,5 @@
 		<div class="entry-summary">
 			<?php the_content(); ?>
 		</div>
-		<?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
-			<?php dynamic_sidebar( 'sidebar-footer' ); ?>
-		<?php endif; ?>
 	</div>
 </article>
