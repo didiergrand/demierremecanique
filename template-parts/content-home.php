@@ -8,7 +8,18 @@
  */
 
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'home-post' ); ?>>
+<?php
+static $home_post_index = 0;
+$is_image_right = ( $home_post_index % 2 === 0 );
+$home_post_index++;
+?>
+<article id="post-<?php the_ID(); ?>" <?php
+	$classes = array( 'home-post' );
+	if ( $is_image_right ) {
+		$classes[] = 'home-post--image-right';
+	}
+	post_class( $classes );
+?>>
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="home-post__thumbnail">
 			<a href="<?php the_permalink(); ?>">

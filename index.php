@@ -15,8 +15,9 @@
 get_header();
 $header_image = get_header_image();
 $home_slides = array();
+$is_home_page = is_front_page() && is_home();
 
-if ( is_front_page() && is_home() ) {
+if ( $is_home_page ) {
 	$home_slides = demierre_mecanique_get_home_slides( 'slides-accueil' );
 }
 
@@ -74,22 +75,173 @@ if ( ! empty( $home_slides ) ) {
 </div>
 	<main id="primary" class="site-main">
 		<div class="container">
+			<?php if ( $is_home_page ) : ?>
+				<?php
+				$get_cta_data = static function( $post_id ) {
+					$text_keys = array( 'button_text', 'bouton_texte', 'cta_text', 'lien_texte' );
+					$link_keys = array( 'button_link', 'bouton_lien', 'cta_link', 'lien_url' );
+
+					$button_text = '';
+					$button_link = '';
+
+					foreach ( $text_keys as $key ) {
+						$value = get_post_meta( $post_id, $key, true );
+						if ( ! empty( $value ) ) {
+							$button_text = $value;
+							break;
+						}
+					}
+
+					foreach ( $link_keys as $key ) {
+						$value = get_post_meta( $post_id, $key, true );
+						if ( ! empty( $value ) ) {
+							$button_link = $value;
+							break;
+						}
+					}
+
+					return array(
+						'text' => $button_text,
+						'link' => $button_link,
+					);
+				};
+				?>
+
+				<?php
+				$welcome_query = new WP_Query(
+					array(
+						'post_type'      => 'post',
+						'posts_per_page' => 10,
+						'category_name' => 'bienvenue',
+						'orderby'        => 'date',
+						'order'          => 'DESC',
+					)
+				);
+				?>
+				<?php if ( $welcome_query->have_posts() ) : ?>
+					<section class="home-welcome-section">
+						<?php while ( $welcome_query->have_posts() ) : $welcome_query->the_post(); ?>
+							<article class="home-welcome-item">
+								<?php if ( has_post_thumbnail() ) : ?>
+									<div class="home-welcome-image">
+										<?php the_post_thumbnail( 'large' ); ?>
+									</div>
+								<?php endif; ?>
+								<h2 class="home-welcome-title"><?php the_title(); ?></h2>
+								<div class="home-welcome-content">
+									<?php the_content(); ?>
+								</div>
+							</article>
+						<?php endwhile; ?>
+					</section>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
+
+				<?php
+				$encart_query = new WP_Query(
+					array(
+						'post_type'      => 'post',
+						'posts_per_page' => 3,
+						'category_name' => 'encart',
+						'orderby'        => 'date',
+						'order'          => 'DESC',
+					)
+				);
+				?>
+				<?php if ( $encart_query->have_posts() ) : ?>
+					<section class="home-cards-section home-cards-section--encart">
+						<div class="home-cards-grid home-cards-grid--3">
+							<?php while ( $encart_query->have_posts() ) : $encart_query->the_post(); ?>
+								<?php $encart_cta = $get_cta_data( get_the_ID() ); ?>
+								<article class="home-card home-card--left">
+									<?php if ( has_post_thumbnail() ) : ?>
+										<div class="home-card-image">
+											<?php the_post_thumbnail( 'large' ); ?>
+										</div>
+									<?php endif; ?>
+									<div class="home-card-content">
+										<h3 class="home-card-title"><?php the_title(); ?></h3>
+										<div class="home-card-text"><?php the_content(); ?></div>
+										<?php if ( ! empty( $encart_cta['text'] ) && ! empty( $encart_cta['link'] ) ) : ?>
+											<a class="btn-default home-card-button" href="<?php echo esc_url( $encart_cta['link'] ); ?>">
+												<?php echo esc_html( $encart_cta['text'] ); ?>
+											</a>
+										<?php endif; ?>
+									</div>
+								</article>
+							<?php endwhile; ?>
+						</div>
+					</section>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
+
+				<?php
+				$service_query = new WP_Query(
+					array(
+						'post_type'      => 'post',
+						'posts_per_page' => 4,
+						'category_name' => 'service',
+						'orderby'        => 'date',
+						'order'          => 'DESC',
+					)
+				);
+				?>
+				<?php if ( $service_query->have_posts() ) : ?>
+					<section class="home-cards-section home-cards-section--service">
+						<div class="home-cards-grid home-cards-grid--4">
+							<?php while ( $service_query->have_posts() ) : $service_query->the_post(); ?>
+								<?php $service_cta = $get_cta_data( get_the_ID() ); ?>
+								<article class="home-card home-card--center">
+									<?php if ( has_post_thumbnail() ) : ?>
+										<div class="home-card-image">
+											<?php the_post_thumbnail( 'large' ); ?>
+										</div>
+									<?php endif; ?>
+									<div class="home-card-content">
+										<h3 class="home-card-title"><?php the_title(); ?></h3>
+										<div class="home-card-text"><?php the_content(); ?></div>
+										<?php if ( ! empty( $service_cta['text'] ) && ! empty( $service_cta['link'] ) ) : ?>
+											<a class="btn-default home-card-button" href="<?php echo esc_url( $service_cta['link'] ); ?>">
+												<?php echo esc_html( $service_cta['text'] ); ?>
+											</a>
+										<?php endif; ?>
+									</div>
+								</article>
+							<?php endwhile; ?>
+						</div>
+					</section>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
+			<?php endif; ?>
+
 			<div class="content-wrapper">
-				<div id="right-sidebar">
-					<?php dynamic_sidebar( 'sidebar-right' );?>
-				</div>
 				<div id="news">
 					<div class="news-content">
 					<?php
-					if ( have_posts() ) :
+					global $wp_query;
 
+					if ( $is_home_page ) {
+						$news_args = array(
+							'post_type'      => 'post',
+							'posts_per_page' => 3,
+							'category_name' => 'actualites',
+							'orderby'        => 'date',
+							'order'          => 'DESC',
+						);
+
+						$news_query = new WP_Query( $news_args );
+					} else {
+						$news_query = $wp_query;
+					}
+
+					if ( $news_query->have_posts() ) :
 						if ( is_home() && ! is_front_page() ) :
 							?>
 							<header>
 								<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
 							</header>
 							<?php
-						else:
+						else :
 							?>
 							<header>
 								<h2 class="page-title screen-reader-text"><?php single_post_title(); ?></h2>
@@ -97,33 +249,30 @@ if ( ! empty( $home_slides ) ) {
 							<?php
 						endif;
 
-						/* Start the Loop */
-						while ( have_posts() ) :
-							the_post();
-
-							/*
-							* Include the Post-Type-specific template for the content.
-							* If you want to override this in a child theme, then include a file
-							* called content-___.php (where ___ is the Post Type name) and that will be used instead.
-							*/
+						while ( $news_query->have_posts() ) :
+							$news_query->the_post();
 							get_template_part( 'template-parts/content', 'home' );
-
 						endwhile;
 					else :
 						get_template_part( 'template-parts/content', 'none' );
 					endif;
-					?>
-					<?php
-					global $wp_query;
-					if ( $wp_query->found_posts > 4 ) :
+
+					if ( $is_home_page && $news_query->found_posts > 4 ) :
 						?>
 						<div class="news-button-wrapper">
 							<a href="<?php echo esc_url( home_url( '/categorie/actualites/' ) ); ?>" class="btn-default"><?php esc_html_e( 'Voir toutes les actualités', 'demierre-mecanique' ); ?></a>
 						</div>
 						<?php
 					endif;
+
+					if ( $is_home_page ) {
+						wp_reset_postdata();
+					}
 					?>
 					</div>
+				</div>
+				<div id="right-sidebar">
+					<?php dynamic_sidebar( 'sidebar-right' );?>
 				</div>
 			</div>
 		</div>
