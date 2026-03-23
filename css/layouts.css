@@ -201,7 +201,9 @@
   position: relative;
   flex: 0 0 50%;
   width: 50%;
-  height: 100%;
+  height: auto;
+  min-height: inherit;
+  align-self: stretch;
   top: auto;
   left: auto;
   background-size: cover;
@@ -219,7 +221,8 @@
   text-align: left;
   padding: 0;
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 .header-carousel-panel {
@@ -234,6 +237,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1;
+  height: 100%;
 }
 
 .header-carousel-title {
