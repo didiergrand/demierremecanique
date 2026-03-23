@@ -762,10 +762,10 @@ article {
   color: var(--link-color) !important;
 }
 .marques{
-  display: flex;
+  display: flex !important;
   flex-direction: row;
   flex-wrap: nowrap;
-  gap: 32px;
+  gap: 32px !important;
   overflow-x: auto;
-  align-items: center;
+  align-items: center !important;
 }
