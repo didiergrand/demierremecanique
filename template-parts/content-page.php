@@ -21,8 +21,5 @@
 			)
 		);
 		?>
-		<?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
-			<?php dynamic_sidebar( 'sidebar-footer' ); ?>
-		<?php endif; ?>
 	</div><!-- .entry-content -->
 </article><!-- page #post-<?php the_ID(); ?> -->

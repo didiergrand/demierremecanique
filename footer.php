@@ -11,10 +11,14 @@
 
 ?>
 
+	<?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
+		<div class="container">
+			<?php dynamic_sidebar( 'sidebar-footer' ); ?>
+		</div>
+	<?php endif; ?>
 	<footer id="colophon" class="site-footer">
 	<div class="site-info">
 		<div class="container">
-		<!--<span class="sep"> | </span>-->
 		© Demierre Entretien et Mécanique | webdesign & code : Didier Grand - <a href="https://www.digitalgarage.ch?ref=demierre-mecanique">digitalgarage.ch</a>
 		</div>
 	</div><!-- .site-info -->

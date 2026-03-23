@@ -19,8 +19,4 @@
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->
-
-	<?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
-		<?php dynamic_sidebar( 'sidebar-footer' ); ?>
-	<?php endif; ?>
 </article><!-- search #post-<?php the_ID(); ?> -->
