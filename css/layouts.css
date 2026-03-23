@@ -270,6 +270,9 @@
 
 .header-carousel-button {
   white-space: nowrap;
+  display: inline-block;
+  align-self: flex-start; 
+  width: auto;
 }
 
 .header-image-content .entry-title {
