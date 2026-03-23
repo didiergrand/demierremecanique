@@ -443,8 +443,6 @@
 
 .home-welcome-item {
   text-align: center;
-  background-color: var(--background-color);
-  border-radius: 8px;
   padding: 24px 20px;
 }
 
@@ -490,7 +488,6 @@
   background-color: var(--background-color);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
 }
@@ -499,6 +496,15 @@
   width: 100%;
   display: block;
   border-radius: 0;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-card-image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--background-gray);
 }
 
 .home-card-content {
