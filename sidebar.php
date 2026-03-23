@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 if ( ! is_active_sidebar( 'sidebar-1' ) ) {

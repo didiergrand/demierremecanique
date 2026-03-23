@@ -7,7 +7,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 /*

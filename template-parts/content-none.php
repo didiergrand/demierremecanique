@@ -4,11 +4,10 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 ?>
-asfsadfs
 <section class="no-results not-found">
 	<header class="page-header">
 		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'demierre-mecanique' ); ?></h1>

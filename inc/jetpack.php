@@ -4,7 +4,7 @@
  *
  * @link https://jetpack.com/
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 /**

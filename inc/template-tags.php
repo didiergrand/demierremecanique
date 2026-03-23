@@ -4,7 +4,7 @@
  *
  * Eventually, some of the functionality here could be replaced by core features.
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 if ( ! function_exists( 'demierre_mecanique_posted_on' ) ) :

@@ -4,14 +4,13 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 ?>
 <?php
-static $home_post_index = 0;
+$home_post_index = isset( $GLOBALS['demierre_home_post_index'] ) ? (int) $GLOBALS['demierre_home_post_index'] : 0;
 $is_image_right = ( $home_post_index % 2 === 0 );
-$home_post_index++;
 ?>
 <article id="post-<?php the_ID(); ?>" <?php
 	$classes = array( 'home-post' );

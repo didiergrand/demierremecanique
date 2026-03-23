@@ -2,7 +2,7 @@
 /**
  * Demierre Entretien et Mécanique Theme Customizer
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 /**

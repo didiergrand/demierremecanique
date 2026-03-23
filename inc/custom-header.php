@@ -8,7 +8,7 @@
  *
  * @link https://developer.wordpress.org/themes/functionality/custom-headers/
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 /**

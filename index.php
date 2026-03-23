@@ -9,7 +9,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Garage_Girard
+ * @package Demierre_mecanique
  */
 
 get_header();
@@ -180,7 +180,7 @@ if ( ! empty( $home_slides ) ) {
 					array(
 						'post_type'      => 'post',
 						'posts_per_page' => 1,
-						'category_name' => 'service-intro',
+						'category_name' => 'service_intro',
 						'orderby'        => 'date',
 						'order'          => 'DESC',
 					)
@@ -270,8 +270,11 @@ if ( ! empty( $home_slides ) ) {
 							<?php
 						endif;
 
+						$home_posts_index = 0;
 						while ( $news_query->have_posts() ) :
 							$news_query->the_post();
+							$GLOBALS['demierre_home_post_index'] = $home_posts_index;
+							$home_posts_index++;
 							get_template_part( 'template-parts/content', 'home' );
 						endwhile;
 					else :
