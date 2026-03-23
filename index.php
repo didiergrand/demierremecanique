@@ -180,7 +180,7 @@ if ( ! empty( $home_slides ) ) {
 					array(
 						'post_type'      => 'post',
 						'posts_per_page' => 1,
-						'category_name' => 'service_intro',
+						'category_name' => 'service-intro',
 						'orderby'        => 'date',
 						'order'          => 'DESC',
 					)
