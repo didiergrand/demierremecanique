@@ -10,7 +10,7 @@
 ?>
 <?php
 $home_post_index = isset( $GLOBALS['demierre_home_post_index'] ) ? (int) $GLOBALS['demierre_home_post_index'] : 0;
-$is_image_right = ( $home_post_index % 2 === 0 );
+$is_image_right = ( $home_post_index % 2 !== 0 );
 ?>
 <div class="news-content">
 <article id="post-<?php the_ID(); ?>" <?php
