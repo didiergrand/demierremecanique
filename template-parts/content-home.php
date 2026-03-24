@@ -22,14 +22,12 @@ $is_image_right = ( $home_post_index % 2 !== 0 );
 ?>>
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="home-post__thumbnail">
-			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( 'medium_large' ); ?>
-			</a>
+			<?php the_post_thumbnail( 'large' ); ?>
 		</div>
 	<?php endif; ?>
 
 	<div class="home-post__content">
-		<?php the_title( '<h2><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' ); ?>
+		<?php the_title( '<h2>', '</h2>' ); ?>
 
 
 		<div class="entry-summary">
