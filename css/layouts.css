@@ -368,24 +368,6 @@
 }
 
 
-/* Footer widgets (above footer, below content) */
-.footer-widgets {
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  padding: 20px 0;
-}
-
-.footer-widgets .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-@media screen and (max-width: 767px) {
-  .footer-widgets .container {
-    grid-template-columns: 1fr;
-  }
-}
 
 .footer-widgets ul {
   margin: 0;
