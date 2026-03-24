@@ -401,14 +401,19 @@
 
 /* Site footer (copyright bar) */
 .site-footer .site-info {
-  background-color: var(--foreground-color);
+  background-color: var(--primary-color);
   color: var(--background-color);
   padding: 5px;
 }
 
 .site-footer .site-info a {
-  color: var(--primary-color);
+  color: var(--background-color);
 }
+
+.site-footer .site-info a:hover {
+  text-decoration: underline;
+}
+
 
 .site-header {
   grid-area: header;
