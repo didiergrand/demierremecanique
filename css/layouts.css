@@ -684,7 +684,8 @@ article {
 /* Button
 --------------------------------------------- */
 .wp-block-file__button,
-.btn-default {
+.btn-default,
+.wp-block-button__link {
   display: inline-block;
   padding: 8px 24px;
   background-color: var(--link-color);
@@ -695,12 +696,20 @@ article {
   transition: background-color 0.3s ease, transform 0.2s ease;
   font-size: 12px;
 }
+
+.wp-block-button__link {
+  font-size: 16px;
+}
 .wp-block-file__button:hover,
 .wp-block-file__button:focus,
 .wp-block-file__button:active,
 .wp-block-file__button:focus-visible,
 .btn-default:hover,
-.btn-default:focus {
+.btn-default:focus,
+.wp-block-button__link:hover,
+.wp-block-button__link:focus,
+.wp-block-button__link:active,
+.wp-block-button__link:focus-visible {
   background-color: var(--secondary-color);
   color: var(--background-color) !important;
   transform: translateY(-2px);
