@@ -22,7 +22,6 @@ if ( have_posts() ) {
 			<?php if ( have_posts() ) : ?>
 
 					<div id="news">
-					<div class="news-content">
 						<?php
 						/* Start the Loop */
 						while ( have_posts() ) :
@@ -39,7 +38,6 @@ if ( have_posts() ) {
 
 						the_posts_navigation();
 						?>
-					</div>
 				</div>
 
 			<?php else :
