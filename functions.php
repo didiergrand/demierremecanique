@@ -146,6 +146,16 @@ function demierre_mecanique_widgets_init() {
 	) );
 
 	register_sidebar( array(
+		'name'          => esc_html__( 'Footer Sidebar 2', 'demierre-mecanique' ),
+		'id'            => 'sidebar-footer-secondary',
+		'description'   => esc_html__( 'Add widgets here.', 'demierre-mecanique' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+
+	register_sidebar( array(
 		'name'          => __( 'Right sidebar', 'demierre-mecanique' ),
 		'id'            => 'sidebar-right',
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',

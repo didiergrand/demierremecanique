@@ -12,8 +12,18 @@
 ?>
 
 	<?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
-		<div class="container">
-			<?php dynamic_sidebar( 'sidebar-footer' ); ?>
+		<div class="footer-widgets">
+			<div class="container">
+				<?php dynamic_sidebar( 'sidebar-footer' ); ?>
+			</div>
+		</div>
+	<?php endif; ?>
+
+	<?php if ( is_active_sidebar( 'sidebar-footer-secondary' ) ) : ?>
+		<div class="footer-widgets footer-widgets--secondary">
+			<div class="container">
+				<?php dynamic_sidebar( 'sidebar-footer-secondary' ); ?>
+			</div>
 		</div>
 	<?php endif; ?>
 	<footer id="colophon" class="site-footer">

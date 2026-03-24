@@ -400,6 +400,23 @@
   color: var(--tertiary-color);
 }
 
+.footer-widgets--secondary {
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+}
+
+.footer-widgets--secondary .widget-title {
+  color: var(--primary-color);
+}
+
+.footer-widgets--secondary a {
+  color: var(--background-color);
+}
+
+.footer-widgets--secondary a:hover {
+  color: var(--primary-color);
+}
+
 /* Site footer (copyright bar) */
 .site-footer .site-info {
   background-color: var(--foreground-color);
