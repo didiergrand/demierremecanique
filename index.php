@@ -237,7 +237,6 @@ if ( ! empty( $home_slides ) ) {
 
 			<div class="content-wrapper">
 				<div id="news">
-					<div class="news-content">
 					<?php
 					global $wp_query;
 
@@ -293,7 +292,6 @@ if ( ! empty( $home_slides ) ) {
 						wp_reset_postdata();
 					}
 					?>
-					</div>
 				</div>
 				<div id="right-sidebar">
 					<?php dynamic_sidebar( 'sidebar-right' );?>
