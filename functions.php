@@ -515,6 +515,16 @@ function demierre_mecanique_articles_latest_shortcode( $atts ) {
 							<?php else : ?>
 								<div class="home-card-text"><?php echo wp_trim_words( wp_strip_all_tags( get_the_content() ), 30 ); ?></div>
 							<?php endif; ?>
+
+							<?php
+							$button_text = get_post_meta( get_the_ID(), 'bouton_texte', true );
+							$button_link = get_post_meta( get_the_ID(), 'bouton_lien', true );
+							?>
+							<?php if ( ! empty( $button_text ) && ! empty( $button_link ) ) : ?>
+								<a class="btn-default home-card-button" href="<?php echo esc_url( $button_link ); ?>">
+									<?php echo esc_html( $button_text ); ?>
+								</a>
+							<?php endif; ?>
 						</div>
 					</article>
 					<?php
