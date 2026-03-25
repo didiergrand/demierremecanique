@@ -22,6 +22,12 @@
 		<div class="entry-summary">
 			<?php the_content(); ?>
 		</div>
+
+		<?php if ( is_active_sidebar( 'sidebar-product' ) ) : ?>
+			<div class="product-widget">
+				<?php dynamic_sidebar( 'sidebar-product' ); ?>
+			</div>
+		<?php endif; ?>
 	</div>
 </article>
 

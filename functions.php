@@ -163,6 +163,16 @@ function demierre_mecanique_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Product Sidebar', 'demierre-mecanique' ),
+		'id'            => 'sidebar-product',
+		'description'   => esc_html__( 'Widgets affichés sous le contenu produit.', 'demierre-mecanique' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
 }
 add_action( 'widgets_init', 'demierre_mecanique_widgets_init' );
 
