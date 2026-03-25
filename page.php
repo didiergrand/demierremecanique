@@ -15,16 +15,7 @@
 get_header();
 ?>
 
-<?php
-if ( have_posts() ) :
-	while ( have_posts() ) :
-		the_post();
-		demierre_mecanique_display_header_image( '', false );
-		break; // Only need to display header once
-	endwhile;
-	rewind_posts();
-endif;
-?>
+
 
 	<main id="primary" class="site-main">
 		<div class="container">

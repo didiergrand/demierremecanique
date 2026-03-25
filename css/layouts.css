@@ -24,6 +24,7 @@
 .entry-title {
   max-width: 1400px;
   margin: 2rem auto;
+  text-align: center;
 }
 
 @media screen and (max-width: 767px) {
@@ -385,6 +386,7 @@
 .footer-widgets--secondary {
   background-color: var(--foreground-color);
   color: var(--background-color);
+  margin-top: 48px;
 }
 
 .footer-widgets--secondary .widget-title {
