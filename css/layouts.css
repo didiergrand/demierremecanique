@@ -434,8 +434,7 @@
   border-radius: 8px;
   padding: 20px;
 }
-.news-content,
-.entry-content {
+.news-content {
   border-radius: 8px;
   background-color: var(--background-color);
 }
@@ -637,7 +636,6 @@ article {
   background-color: var(--background-color);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
 }
 
 .produits-latest-grid > .home-post .home-post__thumbnail img {
