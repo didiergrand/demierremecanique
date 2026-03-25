@@ -254,7 +254,9 @@ function demierre_mecanique_register_produits() {
 			'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
 			'has_archive'        => true,
 			'rewrite'            => array(
-				'slug'       => 'produits',
+				// IMPORTANT: keep this slug different from the taxonomy base (/produits/{categorie}/)
+				// to avoid conflicts on term archives.
+				'slug'       => 'produits-item',
 				'with_front' => false,
 			),
 		)
@@ -317,7 +319,7 @@ add_filter( 'post_type_link', 'demierre_mecanique_produits_post_type_link', 10, 
 function demierre_mecanique_produits_add_rewrite_rules() {
 	add_rewrite_rule(
 		'^produits/([^/]+)/([^/]+)/?$',
-		'index.php?post_type=produits&produits_cat_slug=$matches[1]&name=$matches[2]',
+		'index.php?post_type=produits&produits_cat_slug=$matches[1]&categorie-produit=$matches[1]&name=$matches[2]',
 		'top'
 	);
 }
@@ -337,7 +339,16 @@ function demierre_mecanique_produits_pre_get_posts( $query ) {
 		return;
 	}
 
-	if ( $query->get( 'post_type' ) !== 'produits' ) {
+	$post_type = $query->get( 'post_type' );
+	if ( empty( $post_type ) ) {
+		return;
+	}
+
+	if ( is_array( $post_type ) ) {
+		if ( ! in_array( 'produits', $post_type, true ) ) {
+			return;
+		}
+	} elseif ( $post_type !== 'produits' ) {
 		return;
 	}
 
@@ -364,9 +375,12 @@ add_action( 'pre_get_posts', 'demierre_mecanique_produits_pre_get_posts' );
  * Astuce: si tu modifies les slugs, re-sauvegarder Permaliens dans WP.
  */
 function demierre_mecanique_produits_maybe_flush_rewrites() {
-	if ( ! get_option( 'demierre_mecanique_produits_rewrite_flushed' ) ) {
+	$rewrite_version = '3';
+	$saved_version   = get_option( 'demierre_mecanique_produits_rewrite_version' );
+
+	if ( $saved_version !== $rewrite_version ) {
 		flush_rewrite_rules();
-		update_option( 'demierre_mecanique_produits_rewrite_flushed', 1 );
+		update_option( 'demierre_mecanique_produits_rewrite_version', $rewrite_version );
 	}
 }
 add_action( 'init', 'demierre_mecanique_produits_maybe_flush_rewrites', 20 );
