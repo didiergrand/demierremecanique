@@ -609,7 +609,7 @@ article {
 .product-badge {
   position: absolute;
   top: 12px;
-  right: 12px;
+  left: 12px;
   z-index: 5;
   padding: 8px 12px;
   border-radius: 999px;
