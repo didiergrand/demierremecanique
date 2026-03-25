@@ -35,7 +35,10 @@ h5 a,
 h6 a {
   text-decoration: none;
 }
-
+h1 {
+  font-size: 40px;
+  line-height: 1.25;
+}
 h2 {
   font-size: 32px;
   line-height: 1.25;
