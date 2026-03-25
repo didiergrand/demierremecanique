@@ -761,6 +761,20 @@ article {
     height: 24px;
   }
 }
+.small-buttons{
+  .wp-block-file__button,
+  .btn-default,
+  .wp-block-button__link {
+  padding: 8px 16px;
+  font-size: 12px;
+  gap: 8px;
+    img{
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
 
 .wp-block-button__link {
   font-size: 16px;
