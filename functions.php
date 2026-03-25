@@ -261,7 +261,7 @@ function demierre_mecanique_register_produits() {
 			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'menu_icon'          => 'dashicons-cart',
-			'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+			'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
 			'has_archive'        => true,
 			'rewrite'            => array(
 				// IMPORTANT: keep this slug different from the taxonomy base (/produits/{categorie}/)
