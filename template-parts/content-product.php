@@ -17,7 +17,7 @@
 	<?php endif; ?>
 
 	<div class="home-post__content">
-		<?php the_title( '<h2>', '</h2>' ); ?>
+		<?php the_title( '<h3>', '</h3>' ); ?>
 
 		<div class="entry-summary">
 			<?php the_content(); ?>

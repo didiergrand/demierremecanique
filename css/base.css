@@ -12,7 +12,7 @@ textarea {
   color: #4B5563;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 0.9rem;
-  line-height: 2;
+  line-height: 1.5;
   font-weight: 400;
 }
 
@@ -38,6 +38,7 @@ h6 a {
 h1 {
   font-size: 40px;
   line-height: 1.25;
+  color: var(--primary-color);
 }
 h2 {
   font-size: 32px;
