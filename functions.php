@@ -432,22 +432,7 @@ function demierre_mecanique_produits_latest_shortcode( $atts ) {
 				while ( $q->have_posts() ) :
 					$q->the_post();
 					?>
-					<article class="produits-latest-card">
-						<?php if ( has_post_thumbnail() ) : ?>
-							<div class="produits-latest-image">
-								<?php the_post_thumbnail( 'large' ); ?>
-							</div>
-						<?php endif; ?>
-
-						<div class="produits-latest-content">
-							<h3 class="produits-latest-title">
-								<a href="<?php echo esc_url( get_permalink() ); ?>"><?php the_title(); ?></a>
-							</h3>
-							<?php if ( has_excerpt() ) : ?>
-								<div class="produits-latest-excerpt"><?php the_excerpt(); ?></div>
-							<?php endif; ?>
-						</div>
-					</article>
+					<?php get_template_part( 'template-parts/content', 'product' ); ?>
 					<?php
 				endwhile;
 				?>
