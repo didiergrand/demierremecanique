@@ -593,6 +593,9 @@ article {
   display: flex;
   gap: 24px;
   align-items: stretch;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .home-post--image-right {
@@ -626,30 +629,6 @@ article {
   margin: 28px 0;
 }
 
-.produits-latest-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.produits-latest-grid > .home-post {
-  background-color: var(--background-color);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.produits-latest-grid > .home-post .home-post__thumbnail img {
-  border-radius: 0;
-}
-
-.produits-latest-grid > .home-post .home-post__content {
-  padding: 18px;
-  text-align: left;
-}
-
-.produits-latest-grid > .home-post .home-post__thumbnail {
-  flex: 0 0 35%;
-}
 
 .produits-latest-card {
   background-color: var(--background-color);
