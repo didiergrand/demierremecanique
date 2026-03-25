@@ -746,7 +746,7 @@ article {
 .wp-block-file__button,
 .btn-default,
 .wp-block-button__link {
-  display: inline-block;
+  display: flex;
   padding: 8px 24px;
   background-color: var(--link-color);
   color: var(--background-color);
@@ -755,9 +755,10 @@ article {
   font-weight: 500;
   transition: background-color 0.3s ease, transform 0.2s ease;
   font-size: 12px;
+  gap: 8px;
   img{
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
   }
 }
 
