@@ -9,13 +9,13 @@
   grid-template-columns: 300px auto;
   position: relative;
   padding: 0 20px 0 50px;
-  height: 150px;
+  height: 200px;
 }
 
 .custom-logo {
   padding:0;
-  width: 200px;
-  max-width: 100%;
+  height: 200px;
+  width: auto;
   margin: 0 20px;
   z-index: 1;
   position: relative;
@@ -33,8 +33,8 @@
   }
 
   .custom-logo {
-    width: 300px;
-    max-width: 100%;
+    height: 200px;
+    width: auto;
     margin: 0;
     z-index: 1;
     position: relative;
@@ -629,6 +629,11 @@ article {
   margin: 28px 0;
 }
 
+
+
+.produits-latest-grid > .home-post .home-post__thumbnail {
+  flex: 0 0 50%;
+}
 
 .produits-latest-card {
   background-color: var(--background-color);
