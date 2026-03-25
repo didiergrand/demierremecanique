@@ -764,8 +764,7 @@ article {
 .small-buttons{
   .wp-block-file__button,
   .btn-default,
-  .wp-block-button__link,
-  a {
+  .wp-block-button__link{
   padding: 8px 16px;
   font-size: 12px;
   gap: 8px;
@@ -775,10 +774,37 @@ article {
     }
   }
 }
-
+.btn-small{ 
+  display: flex;
+  padding: 8px 16px;
+  background-color: var(--link-color);
+  color: var(--background-color);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 12px;
+  gap: 8px;
+  img{
+    width: 24px;
+    height: 24px;
+  }
+}
 
 .wp-block-button__link {
   font-size: 16px;
+}
+.btn-small:hover,
+.btn-small:focus,
+.btn-small:active,
+.btn-small:focus-visible {
+  background-color: var(--secondary-color);
+  color: var(--background-color) !important;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.btn-small:active {
+  transform: translateY(0);
 }
 .wp-block-file__button:hover,
 .wp-block-file__button:focus,
