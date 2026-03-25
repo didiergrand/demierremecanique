@@ -221,6 +221,152 @@ function demierre_mecanique_limit_homepage_posts( $query ) {
 }
 add_action( 'pre_get_posts', 'demierre_mecanique_limit_homepage_posts' );
 
+/**
+ * Custom Post Type: Produits + Taxonomie catégorie (URL: /produits/{categorie}/{slug}).
+ */
+function demierre_mecanique_register_produits() {
+	$labels = array(
+		'name'                  => __( 'Produits', 'demierre-mecanique' ),
+		'singular_name'         => __( 'Produit', 'demierre-mecanique' ),
+		'menu_name'             => __( 'Produits', 'demierre-mecanique' ),
+		'name_admin_bar'        => __( 'Produit', 'demierre-mecanique' ),
+		'add_new'               => __( 'Ajouter un produit', 'demierre-mecanique' ),
+		'add_new_item'         => __( 'Ajouter un nouveau produit', 'demierre-mecanique' ),
+		'new_item'              => __( 'Nouveau produit', 'demierre-mecanique' ),
+		'edit_item'            => __( 'Modifier le produit', 'demierre-mecanique' ),
+		'view_item'            => __( 'Voir le produit', 'demierre-mecanique' ),
+		'all_items'            => __( 'Tous les produits', 'demierre-mecanique' ),
+		'search_items'        => __( 'Rechercher parmi les produits', 'demierre-mecanique' ),
+		'not_found'            => __( 'Aucun produit trouvé.', 'demierre-mecanique' ),
+		'not_found_in_trash'  => __( 'Aucun produit trouvé dans la corbeille.', 'demierre-mecanique' ),
+	);
 
+	// CPT.
+	register_post_type(
+		'produits',
+		array(
+			'labels'             => $labels,
+			'public'             => true,
+			'show_in_rest'       => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'menu_icon'          => 'dashicons-cart',
+			'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+			'has_archive'        => true,
+			'rewrite'            => array(
+				'slug'       => 'produits',
+				'with_front' => false,
+			),
+		)
+	);
 
+	// Taxonomie catégorie (termes affichés en /produits/{terme}/).
+	register_taxonomy(
+		'categorie-produit',
+		'produits',
+		array(
+			'labels'            => array(
+				'name'          => __( 'Catégories produits', 'demierre-mecanique' ),
+				'singular_name' => __( 'Catégorie produit', 'demierre-mecanique' ),
+			),
+			'hierarchical'      => true,
+			'public'            => true,
+			'show_in_rest'      => true,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'rewrite'           => array(
+				'slug'       => 'produits',
+				'with_front' => false,
+			),
+		)
+	);
+}
+add_action( 'init', 'demierre_mecanique_register_produits' );
 
+/**
+ * Permalink single produits: /produits/{categorie}/{post_slug}/
+ */
+function demierre_mecanique_produits_post_type_link( $permalink, $post ) {
+	if ( ! $post || $post->post_type !== 'produits' ) {
+		return $permalink;
+	}
+
+	$terms = wp_get_post_terms(
+		$post->ID,
+		'categorie-produit',
+		array(
+			'orderby' => 'term_order',
+			'order'   => 'ASC',
+			'number'  => 1,
+			'fields'  => 'slugs',
+		)
+	);
+
+	if ( empty( $terms ) ) {
+		return $permalink;
+	}
+
+	$categorie_slug = $terms[0];
+	return home_url( user_trailingslashit( 'produits/' . $categorie_slug . '/' . $post->post_name ) );
+}
+add_filter( 'post_type_link', 'demierre_mecanique_produits_post_type_link', 10, 2 );
+
+/**
+ * Rewrite: /produits/{categorie_slug}/{post_slug}
+ */
+function demierre_mecanique_produits_add_rewrite_rules() {
+	add_rewrite_rule(
+		'^produits/([^/]+)/([^/]+)/?$',
+		'index.php?post_type=produits&produits_cat_slug=$matches[1]&name=$matches[2]',
+		'top'
+	);
+}
+add_action( 'init', 'demierre_mecanique_produits_add_rewrite_rules' );
+
+function demierre_mecanique_produits_query_vars( $vars ) {
+	$vars[] = 'produits_cat_slug';
+	return $vars;
+}
+add_filter( 'query_vars', 'demierre_mecanique_produits_query_vars' );
+
+/**
+ * Applique la taxonomie sur la requête quand l'URL contient /produits/{categorie}/{slug}.
+ */
+function demierre_mecanique_produits_pre_get_posts( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	if ( $query->get( 'post_type' ) !== 'produits' ) {
+		return;
+	}
+
+	$cat_slug = get_query_var( 'produits_cat_slug' );
+	if ( empty( $cat_slug ) ) {
+		return;
+	}
+
+	$query->set(
+		'tax_query',
+		array(
+			array(
+				'taxonomy' => 'categorie-produit',
+				'field'    => 'slug',
+				'terms'    => array( $cat_slug ),
+			),
+		)
+	);
+}
+add_action( 'pre_get_posts', 'demierre_mecanique_produits_pre_get_posts' );
+
+/**
+ * Flush des rewrites une seule fois.
+ * Astuce: si tu modifies les slugs, re-sauvegarder Permaliens dans WP.
+ */
+function demierre_mecanique_produits_maybe_flush_rewrites() {
+	if ( ! get_option( 'demierre_mecanique_produits_rewrite_flushed' ) ) {
+		flush_rewrite_rules();
+		update_option( 'demierre_mecanique_produits_rewrite_flushed', 1 );
+	}
+}
+add_action( 'init', 'demierre_mecanique_produits_maybe_flush_rewrites', 20 );
