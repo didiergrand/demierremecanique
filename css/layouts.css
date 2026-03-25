@@ -318,7 +318,7 @@
 .site-title,
 .site-description {
   position: fixed;
-  top: -100px;
+  top: -200px;
 }
 
 .container {
@@ -334,7 +334,7 @@
 }
 #right-sidebar {
   display: flex;
-  padding: 20px;
+  padding: 0 32px 16px;
   border-radius: 8px;
   background-color: var(--background-color);    
   justify-content: space-around;
@@ -614,10 +614,6 @@ article {
   flex: 1;
   min-width: 0;
   padding: 20px;
-}
-
-.home-post__content .entry-summary p {
-  margin: 0;
 }
 
 .produits-latest {

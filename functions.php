@@ -456,3 +456,77 @@ function demierre_mecanique_produits_latest_shortcode( $atts ) {
 	return ob_get_clean();
 }
 add_shortcode( 'demierre_produits_latest', 'demierre_mecanique_produits_latest_shortcode' );
+
+/**
+ * Shortcode: [demierre_articles_latest category="slug" limit="3"]
+ *
+ * Affiche une grille "home-cards-section" (3 colonnes) des derniers articles,
+ * filtrés par catégorie (slug).
+ */
+function demierre_mecanique_articles_latest_shortcode( $atts ) {
+	$atts = shortcode_atts(
+		array(
+			'category' => '',
+			'limit'     => 3,
+		),
+		$atts,
+		'demierre_articles_latest'
+	);
+
+	$limit = max( 1, (int) $atts['limit'] );
+
+	$args = array(
+		'post_type'      => 'post',
+		'post_status'    => 'publish',
+		'posts_per_page' => $limit,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	);
+
+	if ( ! empty( $atts['category'] ) ) {
+		$args['category_name'] = sanitize_title( $atts['category'] );
+	}
+
+	$q = new WP_Query( $args );
+
+	ob_start();
+
+	if ( $q->have_posts() ) :
+		?>
+		<section class="home-cards-section home-cards-section--articles">
+			<div class="home-cards-grid home-cards-grid--3">
+				<?php
+				while ( $q->have_posts() ) :
+					$q->the_post();
+					?>
+					<article class="home-card home-card--left">
+						<?php if ( has_post_thumbnail() ) : ?>
+							<div class="home-card-image">
+								<?php the_post_thumbnail( 'large' ); ?>
+							</div>
+						<?php endif; ?>
+
+						<div class="home-card-content">
+							<h3 class="home-card-title">
+								<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark"><?php the_title(); ?></a>
+							</h3>
+							<?php if ( has_excerpt() ) : ?>
+								<div class="home-card-text"><?php the_excerpt(); ?></div>
+							<?php else : ?>
+								<div class="home-card-text"><?php echo wp_trim_words( wp_strip_all_tags( get_the_content() ), 30 ); ?></div>
+							<?php endif; ?>
+						</div>
+					</article>
+					<?php
+				endwhile;
+				?>
+			</div>
+		</section>
+		<?php
+	endif;
+
+	wp_reset_postdata();
+
+	return ob_get_clean();
+}
+add_shortcode( 'demierre_articles_latest', 'demierre_mecanique_articles_latest_shortcode' );
