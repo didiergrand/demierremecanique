@@ -611,7 +611,7 @@ article {
 }
 .produits-latest .home-post__thumbnail img {
   width: 100%;
-  height: 220px;
+  height: auto;
   object-fit:none;
 }
 
