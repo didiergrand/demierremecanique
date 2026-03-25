@@ -774,7 +774,8 @@ article {
     }
   }
 }
-.btn-small{ 
+.btn-small,
+.btn-small a{ 
   display: flex;
   padding: 8px 16px;
   background-color: var(--link-color);
@@ -797,13 +798,18 @@ article {
 .btn-small:hover,
 .btn-small:focus,
 .btn-small:active,
-.btn-small:focus-visible {
+.btn-small:focus-visible,
+.btn-small a:hover,
+.btn-small a:focus,
+.btn-small a:active,
+.btn-small a:focus-visible {
   background-color: var(--secondary-color);
   color: var(--background-color) !important;
   transform: translateY(-2px);
   text-decoration: none;
 }
-.btn-small:active {
+.btn-small:active,
+.btn-small a:active {
   transform: translateY(0);
 }
 .wp-block-file__button:hover,
