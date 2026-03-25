@@ -384,3 +384,80 @@ function demierre_mecanique_produits_maybe_flush_rewrites() {
 	}
 }
 add_action( 'init', 'demierre_mecanique_produits_maybe_flush_rewrites', 20 );
+
+/**
+ * Shortcode: [demierre_produits_latest category="slug" limit="4"]
+ *
+ * Permet d'afficher un listing de produits dans une page (via le bloc "Shortcode").
+ */
+function demierre_mecanique_produits_latest_shortcode( $atts ) {
+	$atts = shortcode_atts(
+		array(
+			'category' => '', // slug de la taxonomie categorie-produit
+			'limit'     => 6,
+		),
+		$atts,
+		'demierre_produits_latest'
+	);
+
+	$limit = max( 1, (int) $atts['limit'] );
+
+	$args = array(
+		'post_type'      => 'produits',
+		'post_status'    => 'publish',
+		'posts_per_page' => $limit,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	);
+
+	if ( ! empty( $atts['category'] ) ) {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'categorie-produit',
+				'field'    => 'slug',
+				'terms'    => array( sanitize_title( $atts['category'] ) ),
+			),
+		);
+	}
+
+	$q = new WP_Query( $args );
+
+	ob_start();
+
+	if ( $q->have_posts() ) :
+		?>
+		<section class="produits-latest">
+			<div class="produits-latest-grid">
+				<?php
+				while ( $q->have_posts() ) :
+					$q->the_post();
+					?>
+					<article class="produits-latest-card">
+						<?php if ( has_post_thumbnail() ) : ?>
+							<div class="produits-latest-image">
+								<?php the_post_thumbnail( 'large' ); ?>
+							</div>
+						<?php endif; ?>
+
+						<div class="produits-latest-content">
+							<h3 class="produits-latest-title">
+								<a href="<?php echo esc_url( get_permalink() ); ?>"><?php the_title(); ?></a>
+							</h3>
+							<?php if ( has_excerpt() ) : ?>
+								<div class="produits-latest-excerpt"><?php the_excerpt(); ?></div>
+							<?php endif; ?>
+						</div>
+					</article>
+					<?php
+				endwhile;
+				?>
+			</div>
+		</section>
+		<?php
+	endif;
+
+	wp_reset_postdata();
+
+	return ob_get_clean();
+}
+add_shortcode( 'demierre_produits_latest', 'demierre_mecanique_produits_latest_shortcode' );

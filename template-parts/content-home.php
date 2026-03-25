@@ -28,7 +28,7 @@ post_class( $classes );
 	<?php endif; ?>
 
 	<div class="home-post__content">
-		<?php the_title( '<h2><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' ); ?>
+		<?php the_title( '<h2>', '</h2>' ); ?>
 
 		<div class="entry-summary">
 			<?php the_content(); ?>
