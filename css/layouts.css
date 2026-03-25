@@ -166,11 +166,6 @@
   color: #f0f0f0;
 }
 
-.header-image-content .site-description {
-  font-size: 2.2rem;
-  font-weight: normal;
-  font-family: "Oswald", -apple-system, BlinkMacSystemFont, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-}
 
 /* Overlay optionnel pour améliorer la lisibilité */
 .home .header-image::after {
