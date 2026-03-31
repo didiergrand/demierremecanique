@@ -198,6 +198,8 @@
 
   #primary-menu>li>a {
     padding: 20px 40px;
+    align-items: center;
+    justify-content: center;
   }
 
   #primary-menu .sub-menu {
