@@ -52,7 +52,7 @@
   position: relative;
   left: 25px;
   top: -5px;
-  z-index: 4;
+  z-index: 40;
   display: block;
   rotate: 45deg;
 }
@@ -188,7 +188,7 @@
     width: 100%;
     background: #fff;
     overflow: auto;
-    z-index: 3;
+    z-index: 30;
   }
 
   #primary-menu>li {
