@@ -830,7 +830,7 @@ article {
 .btn-menu a:focus,
 .btn-menu a:active,
 .btn-menu a:focus-visible {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color) !important;
   color: var(--background-color) !important;
   transform: translateY(-2px);
   text-decoration: none;
