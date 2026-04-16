@@ -890,6 +890,10 @@ article {
 .wp-block-file:not(.wp-element-button) {
   font-size: 0.9rem;
 }
+.wp-block-file__button {
+  margin-left: 0;
+  display: block !important;
+}
 .wp-block-file__button:active {
   transform: translateY(0);
 }
