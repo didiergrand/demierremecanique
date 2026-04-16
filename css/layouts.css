@@ -859,7 +859,7 @@ article {
 }
 
 
-.wp-block-file:has(object.wp-block-file__embed) {
+.wp-block-file:not(:has(object.wp-block-file__embed)) {
   border-radius: 0.75rem;
   border: 1px solid #e2e8f0;
   padding: 1rem 1.25rem;
@@ -871,11 +871,11 @@ article {
   vertical-align: middle;
 }
 @media (max-width: 768px) {
-  .wp-block-file:has(object.wp-block-file__embed) {
+  .wp-block-file:not(:has(object.wp-block-file__embed)) {
     flex-direction: column;
     align-items: flex-start;
   }
-  .wp-block-file:has(object.wp-block-file__embed) *+.wp-block-file__button {
+  .wp-block-file:not(:has(object.wp-block-file__embed)) *+.wp-block-file__button {
     margin-left: 0;
     margin-top: .75em;
   }
