@@ -860,7 +860,7 @@ article {
 
 
 .wp-block-file {
-  border-radius: 0.75rem;
+  border-radius: 8px;
   padding: 1rem 1.25rem;
   background: #ffffff;
 }

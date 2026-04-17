@@ -152,7 +152,6 @@ if ( ! empty( $home_slides ) ) {
 					<section class="home-cards-section home-cards-section--encart">
 						<div class="home-cards-grid home-cards-grid--3">
 							<?php while ( $encart_query->have_posts() ) : $encart_query->the_post(); ?>
-								<?php $encart_cta = $get_cta_data( get_the_ID() ); ?>
 								<article class="home-card home-card--left">
 									<?php if ( has_post_thumbnail() ) : ?>
 										<div class="home-card-image">
@@ -162,11 +161,6 @@ if ( ! empty( $home_slides ) ) {
 									<div class="home-card-content">
 										<h3 class="home-card-title"><?php the_title(); ?></h3>
 										<div class="home-card-text"><?php the_content(); ?></div>
-										<?php if ( ! empty( $encart_cta['text'] ) && ! empty( $encart_cta['link'] ) ) : ?>
-											<a class="btn-default home-card-button" href="<?php echo esc_url( $encart_cta['link'] ); ?>">
-												<?php echo esc_html( $encart_cta['text'] ); ?>
-											</a>
-										<?php endif; ?>
 									</div>
 								</article>
 							<?php endwhile; ?>
