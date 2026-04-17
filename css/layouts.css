@@ -823,7 +823,7 @@ article {
   }
 }
 
-.wp-block-button__link {
+.footer-widgets .wp-block-button__link {
   font-size: 16px;
 }
 .btn-menu a:hover,
