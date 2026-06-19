@@ -19,6 +19,7 @@ $is_home_page = is_front_page() && is_home();
 
 if ( $is_home_page ) {
 	$home_slides = demierre_mecanique_get_home_slides( 'slides-accueil' );
+	shuffle( $home_slides );
 }
 
 if ( ! empty( $home_slides ) ) {

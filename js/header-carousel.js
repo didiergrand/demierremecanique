@@ -3,6 +3,7 @@
 
 	var SWITCH_DELAY = 5000;
 	var FADE_DELAY = 300;
+	var DRAG_THRESHOLD = 50;
 
 	function applyImage( container, url ) {
 		var bg = container.querySelector( '.header-image-bg' );
@@ -149,6 +150,64 @@
 			}
 			goToIndex( ( currentIndex + 1 ) % images.length );
 		}, SWITCH_DELAY );
+
+		// Drag / swipe support
+		var dragStartX = null;
+		var isDragging = false;
+
+		function onDragStart( x ) {
+			dragStartX = x;
+			isDragging = false;
+		}
+
+		function onDragEnd( x ) {
+			if ( dragStartX === null ) {
+				return;
+			}
+
+			var delta = x - dragStartX;
+			dragStartX = null;
+
+			if ( Math.abs( delta ) < DRAG_THRESHOLD ) {
+				return;
+			}
+
+			isDragging = true;
+
+			if ( delta < 0 ) {
+				goToIndex( ( currentIndex + 1 ) % images.length );
+			} else {
+				goToIndex( ( currentIndex - 1 + images.length ) % images.length );
+			}
+		}
+
+		// Suppress link clicks that result from a drag gesture
+		container.addEventListener( 'click', function ( e ) {
+			if ( isDragging ) {
+				e.preventDefault();
+				isDragging = false;
+			}
+		}, true );
+
+		// Mouse drag
+		container.addEventListener( 'mousedown', function ( e ) {
+			onDragStart( e.clientX );
+		} );
+
+		document.addEventListener( 'mouseup', function ( e ) {
+			if ( dragStartX !== null ) {
+				onDragEnd( e.clientX );
+			}
+		} );
+
+		// Touch swipe
+		container.addEventListener( 'touchstart', function ( e ) {
+			onDragStart( e.touches[ 0 ].clientX );
+		}, { passive: true } );
+
+		container.addEventListener( 'touchend', function ( e ) {
+			onDragEnd( e.changedTouches[ 0 ].clientX );
+		} );
 	}
 
 	document.addEventListener( 'DOMContentLoaded', function () {
