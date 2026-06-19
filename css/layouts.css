@@ -189,7 +189,7 @@
 }
 
 .home .header-image[data-carousel-slides] .container {
-  flex: 0 0 50%;
+  flex: 0 0 40%;
   max-width: none;
   padding: 0;
   margin: 0;
@@ -198,8 +198,8 @@
 
 .home .header-image[data-carousel-slides] .header-image-bg {
   position: relative;
-  flex: 0 0 50%;
-  width: 50%;
+  flex: 0 0 60%;
+  width: 60%;
   height: auto;
   min-height: inherit;
   align-self: stretch;
