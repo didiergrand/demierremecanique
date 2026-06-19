@@ -218,11 +218,35 @@ function demierre_mecanique_get_home_slides( $category_slug = 'slides-accueil' )
 			'...'
 		);
 
+		$text_keys = array( 'button_text', 'bouton_texte', 'cta_text', 'lien_texte' );
+		$link_keys = array( 'button_link', 'bouton_lien', 'cta_link', 'lien_url' );
+
+		$button_text = '';
+		$button_link = '';
+
+		foreach ( $text_keys as $key ) {
+			$value = get_post_meta( $post->ID, $key, true );
+			if ( ! empty( $value ) ) {
+				$button_text = $value;
+				break;
+			}
+		}
+
+		foreach ( $link_keys as $key ) {
+			$value = get_post_meta( $post->ID, $key, true );
+			if ( ! empty( $value ) ) {
+				$button_link = $value;
+				break;
+			}
+		}
+
 		$slides[] = array(
-			'image'   => $image_url,
-			'title'   => $title,
-			'excerpt' => $excerpt,
-			'link'    => get_permalink( $post->ID ),
+			'image'       => $image_url,
+			'title'       => $title,
+			'excerpt'     => $excerpt,
+			'link'        => get_permalink( $post->ID ),
+			'button_text' => $button_text,
+			'button_link' => $button_link,
 		);
 	}
 

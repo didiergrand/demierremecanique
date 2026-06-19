@@ -105,8 +105,15 @@
 			}
 
 			var button = container.querySelector( '.header-carousel-button' );
-			if ( button && slide.link ) {
-				button.setAttribute( 'href', slide.link );
+			if ( button ) {
+				var buttonHref = slide.button_link || slide.link;
+				var buttonText = slide.button_text || '';
+				if ( buttonHref ) {
+					button.setAttribute( 'href', buttonHref );
+				}
+				if ( buttonText ) {
+					button.textContent = buttonText;
+				}
 			}
 		}
 

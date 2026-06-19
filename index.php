@@ -49,8 +49,8 @@ if ( ! empty( $home_slides ) ) {
 					<?php if ( ! empty( $first_slide['excerpt'] ) ) : ?>
 						<p class="header-carousel-excerpt"><?php echo esc_html( $first_slide['excerpt'] ); ?></p>
 					<?php endif; ?>
-					<a class="header-carousel-button btn-default" href="<?php echo esc_url( $first_slide['link'] ); ?>">
-						<?php echo esc_html__( 'En savoir plus', 'demierre-mecanique' ); ?>
+					<a class="header-carousel-button btn-default" href="<?php echo esc_url( ! empty( $first_slide['button_link'] ) ? $first_slide['button_link'] : $first_slide['link'] ); ?>">
+						<?php echo esc_html( ! empty( $first_slide['button_text'] ) ? $first_slide['button_text'] : __( 'En savoir plus', 'demierre-mecanique' ) ); ?>
 					</a>
 				</div>
 			<?php else : ?>
