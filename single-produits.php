@@ -13,7 +13,7 @@ demierre_mecanique_display_header_image();
 ?>
 
 <main id="primary" class="site-main">
-	<div class="container container-small">
+	<div class="container">
 		<?php
 		while ( have_posts() ) :
 			the_post();
