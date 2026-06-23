@@ -40,7 +40,24 @@
 	if ( has_blocks( $post_content ) ) {
 		// Match the first wp:gallery block including its inner blocks.
 		if ( preg_match( '/<!--\s*wp:gallery[\s\S]*?<!--\s*\/wp:gallery\s*-->/i', $post_content, $gallery_match ) ) {
+			/*
+			 * WordPress uses uniqid() (without extra entropy) for galleryId.
+			 * On fast servers, two galleries rendered in the same microsecond
+			 * can receive the same ID, causing their lightbox navigations to merge.
+			 * Override with a post-specific ID to guarantee isolation.
+			 */
+			$post_id             = get_the_ID();
+			$gallery_id_filter   = static function ( $context, $parsed_block ) use ( $post_id ) {
+				if ( 'core/gallery' === $parsed_block['blockName'] ) {
+					$context['galleryId'] = 'post' . $post_id . '_' . uniqid( '', true );
+				}
+				return $context;
+			};
+
+			add_filter( 'render_block_context', $gallery_id_filter, 15, 2 );
 			$gallery_html = do_blocks( $gallery_match[0] );
+			remove_filter( 'render_block_context', $gallery_id_filter, 15 );
+
 			$remaining    = str_replace( $gallery_match[0], '', $post_content );
 			$content_html = apply_filters( 'the_content', $remaining );
 		}
