@@ -31,9 +31,42 @@
 			$badge_label = 'Promo';
 		}
 	}
+
+	// Detect and extract a gallery from the post content.
+	$post_content = get_the_content();
+	$gallery_html = '';
+	$content_html = '';
+
+	if ( has_blocks( $post_content ) ) {
+		// Match the first wp:gallery block including its inner blocks.
+		if ( preg_match( '/<!--\s*wp:gallery[\s\S]*?<!--\s*\/wp:gallery\s*-->/i', $post_content, $gallery_match ) ) {
+			$gallery_html = do_blocks( $gallery_match[0] );
+			$remaining    = str_replace( $gallery_match[0], '', $post_content );
+			$content_html = apply_filters( 'the_content', $remaining );
+		}
+	}
+
+	if ( empty( $gallery_html ) && has_shortcode( $post_content, 'gallery' ) ) {
+		if ( preg_match( '/\[gallery[^\]]*\]/', $post_content, $gallery_match ) ) {
+			$gallery_html = do_shortcode( $gallery_match[0] );
+			$remaining    = str_replace( $gallery_match[0], '', $post_content );
+			$content_html = apply_filters( 'the_content', $remaining );
+		}
+	}
+
+	$has_gallery = ! empty( $gallery_html );
 	?>
 
-	<?php if ( has_post_thumbnail() ) : ?>
+	<?php if ( $has_gallery ) : ?>
+		<div class="home-post__thumbnail home-post__thumbnail--gallery">
+			<?php echo $gallery_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php if ( ! empty( $badge_label ) && ! empty( $badge_type ) ) : ?>
+				<span class="product-badge product-badge--<?php echo esc_attr( $badge_type ); ?>">
+					<?php echo esc_html( $badge_label ); ?>
+				</span>
+			<?php endif; ?>
+		</div>
+	<?php elseif ( has_post_thumbnail() ) : ?>
 		<div class="home-post__thumbnail">
 			<a href="<?php the_permalink(); ?>">
 				<?php the_post_thumbnail( 'medium_large' ); ?>
@@ -51,7 +84,11 @@
 		<?php the_title( '<h3>', '</h3>' ); ?>
 
 		<div class="entry-summary">
-			<?php the_content(); ?>
+			<?php if ( $has_gallery ) : ?>
+				<?php echo $content_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php else : ?>
+				<?php the_content(); ?>
+			<?php endif; ?>
 		</div>
 
 		<?php if ( is_active_sidebar( 'sidebar-product' ) ) : ?>
@@ -61,4 +98,3 @@
 		<?php endif; ?>
 	</div>
 </article>
-
