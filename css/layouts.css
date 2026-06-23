@@ -607,7 +607,7 @@ article {
   position: relative;
 }
 
-/* Gallery in product thumbnail slot: first image large, others stacked on the right */
+/* Gallery in product thumbnail slot: first image full-width, others in a row below */
 .home-post__thumbnail--gallery {
   overflow: hidden;
   border-radius: 6px;
@@ -616,16 +616,16 @@ article {
 /* --- Modern Gutenberg gallery (has-nested-images) --- */
 .home-post__thumbnail--gallery .wp-block-gallery.has-nested-images {
   display: grid !important;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: 4px;
   margin: 0;
-  /* reset WP's flex */
   flex-wrap: unset;
   align-items: unset;
 }
 
+/* First image spans full width */
 .home-post__thumbnail--gallery .wp-block-gallery.has-nested-images > figure:first-child {
-  grid-row: 1 / span 100;
+  grid-column: 1 / -1;
 }
 
 /* Reset WP block flex sizing on image items */
@@ -637,7 +637,11 @@ article {
   width: unset !important;
   margin: 0;
   overflow: hidden;
-  min-height: 120px;
+}
+
+/* Thumbnails below: fixed height */
+.home-post__thumbnail--gallery .wp-block-gallery.has-nested-images > figure:not(:first-child) {
+  height: 100px;
 }
 
 /* Make wrappers fill their grid cell */
@@ -664,7 +668,7 @@ article {
 
 .home-post__thumbnail--gallery .blocks-gallery-grid {
   display: grid !important;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: 4px;
   list-style: none;
   padding: 0;
@@ -672,14 +676,17 @@ article {
 }
 
 .home-post__thumbnail--gallery .blocks-gallery-grid .blocks-gallery-item:first-child {
-  grid-row: 1 / span 100;
+  grid-column: 1 / -1;
 }
 
 .home-post__thumbnail--gallery .blocks-gallery-grid .blocks-gallery-item {
   width: unset !important;
   margin: 0 !important;
   overflow: hidden;
-  min-height: 120px;
+}
+
+.home-post__thumbnail--gallery .blocks-gallery-grid .blocks-gallery-item:not(:first-child) {
+  height: 100px;
 }
 
 .home-post__thumbnail--gallery .blocks-gallery-grid .blocks-gallery-item figure {
@@ -696,19 +703,22 @@ article {
 /* --- Classic shortcode gallery --- */
 .home-post__thumbnail--gallery .gallery {
   display: grid !important;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: 4px;
   margin: 0;
 }
 
 .home-post__thumbnail--gallery .gallery .gallery-item:first-child {
-  grid-row: 1 / span 100;
+  grid-column: 1 / -1;
 }
 
 .home-post__thumbnail--gallery .gallery .gallery-item {
   margin: 0;
   overflow: hidden;
-  min-height: 120px;
+}
+
+.home-post__thumbnail--gallery .gallery .gallery-item:not(:first-child) {
+  height: 100px;
 }
 
 .home-post__thumbnail--gallery .gallery .gallery-item img {
