@@ -54,7 +54,9 @@
 .home .header-image{
   min-height: 700px;
 }
-
+.home .header-image-bg{
+  opacity: 1;
+}
 .header-image img {
   position: absolute;
   top: 0;
